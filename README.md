@@ -2,16 +2,24 @@
 ---------  Under construction!  ---------
 ```
 
-# merge-bams-nf 
-Minimal nextflow pipeline to merge technical replicates from BAM files
+# ValidateBAM-nf 
+Minimal nextflow pipeline to check integrity of BAM files with picard `ValidateSamFile`
 <br><br><br>
 
 <p align="center">
-  <img src="images/merge-bam-files.svg"  width="800" align="center" >
+  <img src=""  width="800" align="center" >
 </p>
 
 
 ## Quick Start
+
+Required Arguments:
+
+| argument       | value | 
+|:--------------:|:-----:| 
+| `inputdir`| a path to the input folder with bam files to be checked| 
+| `outdir`  | a path to an output folder for the .txt summary report files. The reports will be in the `outdir/Results/` folder|
+|`ref`| a path to the fasta file used as a reference genome for mapping the bam files|
 
 To test the pipeline with the example input you can run:
 
