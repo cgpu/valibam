@@ -11,6 +11,7 @@ Channel
     .set { ref_channel_ }
 
 process validate_sam_file {
+  tag "$bam"
   publishDir "$params.outdir/Results", mode: 'copy'
   container "broadinstitute/gatk:latest"
 
