@@ -4,11 +4,7 @@
 
 # ValidateBAM-nf 
 Minimal nextflow pipeline to check integrity of BAM files with picard `ValidateSamFile`
-<br><br><br>
-
-<p align="center">
-  <img src=""  width="800" align="center" >
-</p>
+<br><br>
 
 
 ## Quick Start
