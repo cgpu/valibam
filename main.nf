@@ -1,28 +1,39 @@
-// Input channel, fromPath it retrieves all objects of type 'file'
-input_files_channel_ = Channel.fromPath(params.input_files_list)
-                              .ifEmpty { exit 1, "Input BAM files .csv list file not found: ${params.input_files_list}" }
-                              .splitCsv(sep: ',', skip: 1)
-                              .map{ shared_sample_id, filepath -> [shared_sample_id,  file(filepath)] }
-                              .groupTuple()
-                              .into { input_files_channel_samtools_; input_files_channel_sambamba_}
+params.inputdir = false
+params.outdir   = false
+params.ref      = false
 
+Channel
+    .fromPath("${params.inputdir}/*.bam")
+    .set { validate_sam_file_channel_ }
 
-process samtools_merge_bams {
+Channel
+    .fromPath(params.ref)
+    .set { ref_channel_ }
 
-    tag "$shared_sample_id"
-    publishDir "results", mode: 'copy'    
-    container 'lifebitai/samtools:latest'
+process validate_same_file {
+  publishDir "$params.outdir/Results", mode: 'copy'
+  container "broadinstitute/gatk:latest"
 
-    input:
-    set val(shared_sample_id), file('*.bam') from input_files_channel_samtools_
+  input:
+  file(bam) from validate_sam_file_channel_
+  each file(ref) from ref_channel_
 
-    output:
-    file "${shared_sample_id}.merged.bam" into nowhere_channel_samtools
+  output:
+  file("*txt") into multiqc_channel_
 
-    when: params.tool.toLowerCase().contains("samtools")
+  script:
+  """
+   gatk ValidateSamFile \
+  --INPUT ${bam} \
+  --OUTPUT ${bam.baseName}_summary.txt \
+  --INDEX_VALIDATION_STRINGENCY NONE \
+  --VALIDATE_INDEX false \
+  --IS_BISULFITE_SEQUENCED false \
+  --MAX_OPEN_TEMP_FILES 8000 \
+  --MAX_OUTPUT 1000 \
+  --MODE SUMMARY \
+  --SKIP_MATE_VALIDATION false \
+  --REFERENCE_SEQUENCE ${ref}
 
-    script:
-    """
-    samtools merge 	-@ 4 "${shared_sample_id}.merged.bam" *.bam 
-    """
+  """
 }
