@@ -1,0 +1,5 @@
+shared_sample_id,filepath
+NA12878,s3://giab/data/NA12878/CompleteGenomics_normal/BAM/NA12878.chrom1.CGI.teramap.CEU.high_coverage.20120417.bam
+NA12878,s3://giab/data/NA12878/CompleteGenomics_normal/BAM/NA12878.chrom2.CGI.teramap.CEU.high_coverage.20120417.bam
+ChineseTrioSon,s3://giab/data/ChineseTrio/HG005_NA24631_son/ion_exome/HG005_NA24631_SRR1767452_IonXpress_026_rawlib_24024.bam
+ChineseTrioSon,s3://giab/data/ChineseTrio/HG005_NA24631_son/ion_exome/HG005_NA24631_SRR1767453_IonXpress_026_rawlib_24032.bam
