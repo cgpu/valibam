@@ -10,7 +10,7 @@ Channel
     .fromPath(params.ref)
     .set { ref_channel_ }
 
-process validate_same_file {
+process validate_sam_file {
   publishDir "$params.outdir/Results", mode: 'copy'
   container "broadinstitute/gatk:latest"
 
