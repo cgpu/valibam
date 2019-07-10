@@ -14,7 +14,7 @@ process validate_sam_file {
 
   input:
   file(bam) from validate_sam_file_channel_
-  each file(ref) from ref_channel_
+  each file(ref) from ref_validate_sam_channel_
 
   output:
   file("*txt") into multiqc_channel_validate_sam_
