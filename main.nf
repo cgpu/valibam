@@ -66,16 +66,16 @@ process qualimap_bamqc {
 
   script:
   """
-    qualimap \
-    bamqc \
-    -bam ${bam} \
-    --paint-chromosome-limits \
-    --genome-gc-distr HUMAN \
-    -nt 2 \
-    -skip-duplicated \
-    --skip-dup-mode 0 \
-    -outdir ${bam.baseName} \
-    -outformat HTML
+  qualimap \
+  bamqc \
+  -bam ${bam} \
+  --paint-chromosome-limits \
+  --genome-gc-distr HUMAN \
+  -nt 2 \
+  -skip-duplicated \
+  --skip-dup-mode 0 \
+  -outdir ${bam.baseName} \
+  -outformat HTML
   """
 }
 process multiqc {
