@@ -17,7 +17,7 @@ process validate_sam_file {
   each file(ref) from ref_validate_sam_channel_
 
   output:
-  file("*txt") into multiqc_channel_validate_sam_
+  file("*") into multiqc_channel_validate_sam_
 
   script:
   """
@@ -45,7 +45,7 @@ process samtools_flagstat {
   each file(ref) from ref_samtools_flagstat_channel_
 
   output:
-  file("*txt") into multiqc_channel_samtools_flagstat_
+  file("*") into multiqc_channel_samtools_flagstat_
 
   script:
   """
@@ -62,7 +62,7 @@ process qualimap_bamqc {
   each file(ref) from ref_qualimap_bamqc_channel_
 
   output:
-  file("*txt") into multiqc_channel_qualimap_bamqc_
+  file("*") into multiqc_channel_qualimap_bamqc_
 
   script:
   """
