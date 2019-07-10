@@ -9,7 +9,7 @@ Channel
 
 process validate_sam_file {
   tag "$bam"
-  publishDir "ValidateBamFiles", mode: 'copy'
+  publishDir "$params.outdir/ValidateBamFiles", mode: 'copy'
   container "broadinstitute/gatk:latest"
 
   input:
@@ -37,7 +37,7 @@ process validate_sam_file {
 }
 process samtools_flagstat {
   tag "$bam"
-  publishDir "SamtoolsFlagstat", mode: 'copy'
+  publishDir "$params.outdir/SamtoolsFlagstat", mode: 'copy'
   container "lifebitai/samtools:latest"
 
   input:
@@ -54,7 +54,7 @@ process samtools_flagstat {
 }
 process qualimap_bamqc {
   tag "$bam"
-  publishDir "QualimapBamQC", mode: 'copy'
+  publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
   container "maxulysse/sarek:latest"
 
   input:
@@ -79,7 +79,7 @@ process qualimap_bamqc {
   """
 }
 process multiqc {
-    publishDir "MultiQC", mode: 'copy'
+    publishDir "$params.outdir/MultiQC", mode: 'copy'
     container 'ewels/multiqc:v1.7'
 
     when:
