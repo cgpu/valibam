@@ -5,7 +5,7 @@ Channel
 
 Channel
     .fromPath(params.ref)
-    .into { md5sum_channel_, ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
+    .into { md5sum_channel_ ; ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
 
 
 
