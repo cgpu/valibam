@@ -18,7 +18,7 @@ process generate_md5sum {
   file(bam) from md5sum_channel_
 
   output:
-  file("*") into multiqc_channel_validate_bam_
+  file("*") into nowhere_channel_
 
   script:
   """
