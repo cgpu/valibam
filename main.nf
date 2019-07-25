@@ -5,9 +5,28 @@ Channel
 
 Channel
     .fromPath(params.ref)
-    .into { ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
+    .into { md5sum_channel_, ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
 
-process validate_sam_file {
+
+
+process generate_md5sum {
+  tag "$bam"
+  publishDir "$params.outdir/md5sum", mode: 'copy'
+  container "frolvlad/alpine-bash:latest"
+
+  input:
+  file(bam) from md5sum_channel_
+
+  output:
+  file("*") into multiqc_channel_validate_bam_
+
+  script:
+  """
+  md5sum $bam >  "${bam.baseName}.md5sum"  
+  """
+}
+
+process validate_bam_file {
   tag "$bam"
   publishDir "$params.outdir/ValidateBamFiles", mode: 'copy'
   container "broadinstitute/gatk:latest"
@@ -17,7 +36,7 @@ process validate_sam_file {
   each file(ref) from ref_validate_sam_channel_
 
   output:
-  file("*") into multiqc_channel_validate_sam_
+  file("*") into multiqc_channel_validate_bam_
 
   script:
   """
@@ -86,7 +105,7 @@ process multiqc {
     !params.skip_multiqc
 
     input:
-    file (validateSamFile) from multiqc_channel_validate_sam_.collect().ifEmpty([])
+    file (validateSamFile) from multiqc_channel_validate_bam_.collect().ifEmpty([])
     file (flagstat) from multiqc_channel_samtools_flagstat_.collect().ifEmpty([])
     file (bamqc) from multiqc_channel_qualimap_bamqc_.collect().ifEmpty([])
     
