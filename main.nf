@@ -1,11 +1,11 @@
 
 Channel
     .fromPath("${params.inputdir}/*.bam")
-    .into { validate_sam_file_channel_ ; samtools_flagstat_channel_ ; qualimap_bamqc_channel_}
+    .into {  md5sum_channel_ ; validate_sam_file_channel_ ; samtools_flagstat_channel_ ; qualimap_bamqc_channel_}
 
 Channel
     .fromPath(params.ref)
-    .into { md5sum_channel_ ; ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
+    .into { ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
 
 
 
