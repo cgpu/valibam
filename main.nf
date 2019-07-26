@@ -1,11 +1,11 @@
 
 Channel
     .fromPath("${params.inputdir}/*.bam")
-    .into {  md5sum_channel_ ; validate_sam_file_channel_ ; samtools_flagstat_channel_ ; qualimap_bamqc_channel_}
+    .into {  md5_channel ; validate_bam_channel ; samtools_flagstat_channel ; qualimap_bamqc_channel}
 
 Channel
     .fromPath(params.ref)
-    .into { ref_validate_sam_channel_ ; ref_samtools_flagstat_channel_ ; ref_qualimap_bamqc_channel_}
+    .into { ref_validate_bam_channel ; ref_samtools_flagstat_channel ; ref_qualimap_bamqc_channel}
 
 
 
@@ -15,7 +15,7 @@ process generate_md5 {
   container "frolvlad/alpine-bash:latest"
 
   input:
-  file(bam) from md5sum_channel_
+  file(bam) from md5_channel
 
   output:
   file("*") into nowhere_channel_
@@ -29,17 +29,17 @@ process generate_md5 {
   """
 }
 
-process validate_bam_file {
+process validate_bam {
   tag "$bam"
   publishDir "$params.outdir/ValidateBamFiles", mode: 'copy'
   container "broadinstitute/gatk:latest"
 
   input:
-  file(bam) from validate_sam_file_channel_
-  each file(ref) from ref_validate_sam_channel_
+  file(bam) from validate_bam_channel
+  each file(ref) from ref_validate_bam_channel
 
   output:
-  file("*") into multiqc_channel_validate_bam_
+  file("*") into multiqc_channel_validate_bam
 
   script:
   """
@@ -63,11 +63,11 @@ process samtools_flagstat {
   container "lifebitai/samtools:latest"
 
   input:
-  file(bam) from samtools_flagstat_channel_
-  each file(ref) from ref_samtools_flagstat_channel_
+  file(bam) from samtools_flagstat_channel
+  each file(ref) from ref_samtools_flagstat_channel
 
   output:
-  file("*") into multiqc_channel_samtools_flagstat_
+  file("*") into multiqc_channel_samtools_flagstat
 
   script:
   """
@@ -80,11 +80,11 @@ process qualimap_bamqc {
   container "maxulysse/sarek:latest"
 
   input:
-  file(bam) from qualimap_bamqc_channel_
-  each file(ref) from ref_qualimap_bamqc_channel_
+  file(bam) from qualimap_bamqc_channel
+  each file(ref) from ref_qualimap_bamqc_channel
 
   output:
-  file("*") into multiqc_channel_qualimap_bamqc_
+  file("*") into multiqc_channel_qualimap_bamqc
 
   script:
   """
@@ -108,9 +108,9 @@ process multiqc {
     !params.skip_multiqc
 
     input:
-    file (validateSamFile) from multiqc_channel_validate_bam_.collect().ifEmpty([])
-    file (flagstat) from multiqc_channel_samtools_flagstat_.collect().ifEmpty([])
-    file (bamqc) from multiqc_channel_qualimap_bamqc_.collect().ifEmpty([])
+    file (validateSamFile) from multiqc_channel_validate_bam.collect().ifEmpty([])
+    file (flagstat) from multiqc_channel_samtools_flagstat.collect().ifEmpty([])
+    file (bamqc) from multiqc_channel_qualimap_bamqc.collect().ifEmpty([])
     
     output:
     file "*multiqc_report.html" into multiqc_report
