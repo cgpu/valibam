@@ -23,7 +23,7 @@ process generate_md5sum {
   script:
   """
   filename=`echo ${bam}`
-  sum=`md5 -q $bam`
+  sum=`md5sum $bam | cut -d " " -f1`
   filename="\${filename}__md5_\${sum}"
   touch "\$filename"
   """
