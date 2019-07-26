@@ -9,7 +9,7 @@ Channel
 
 
 
-process generate_md5sum {
+process generate_md5 {
   tag "$bam"
   publishDir "$params.outdir/md5sum", mode: 'copy'
   container "frolvlad/alpine-bash:latest"
