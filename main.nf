@@ -22,7 +22,10 @@ process generate_md5sum {
 
   script:
   """
-  md5sum $bam >  "${bam.baseName}.md5sum"  
+  filename=`echo ${bam}`
+  sum=`md5 -q $bam`
+  filename="\${filename}__md5_\${sum}"
+  touch "\$filename"
   """
 }
 
