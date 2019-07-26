@@ -3,7 +3,7 @@
 ```
 
 # ValidateBAM-nf 
-Minimal nextflow pipeline to check integrity of BAM files with various tools and generating `md5sum`.
+Minimal nextflow pipeline to check integrity of BAM files with various tools and to generate`md5sum` of the files.
 <br><br>
 
 <p align="center">
