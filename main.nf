@@ -8,7 +8,6 @@ Channel
     .into { ref_validate_bam_channel ; ref_samtools_flagstat_channel ; ref_qualimap_bamqc_channel}
 
 
-
 process generate_md5 {
   tag "$bam"
   publishDir "$params.outdir/md5sum", mode: 'copy'
@@ -57,6 +56,7 @@ process validate_bam {
 
   """
 }
+
 process samtools_flagstat {
   tag "$bam"
   publishDir "$params.outdir/SamtoolsFlagstat", mode: 'copy'
@@ -74,6 +74,7 @@ process samtools_flagstat {
   samtools flagstat ${bam} > ${bam.baseName}.flagstats.txt
   """
 }
+
 process qualimap_bamqc {
   tag "$bam"
   publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
@@ -100,6 +101,7 @@ process qualimap_bamqc {
   -outformat HTML
   """
 }
+
 process multiqc {
     publishDir "$params.outdir/MultiQC", mode: 'copy'
     container 'ewels/multiqc:v1.7'
