@@ -3,8 +3,13 @@
 ```
 
 # ValidateBAM-nf 
-Minimal nextflow pipeline to check integrity of BAM files with picard `ValidateSamFile`
+Minimal nextflow pipeline to check integrity of BAM files with various tools and generating `md5sum`.
 <br><br>
+
+<p align="center">
+  <img src="images/Validate-Bam.svg"  width="800" align="center" >
+</p>
+
 
 
 ## Quick Start
