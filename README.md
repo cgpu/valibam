@@ -7,7 +7,7 @@ Minimal nextflow pipeline to check integrity of BAM files with various tools and
 <br><br>
 
 <p align="center">
-  <img src="images/Validate-Bam.svg"  width="800" align="center" >
+  <img src="images/validate-bam.svg"  width="800" align="center" >
 </p>
 
 
