@@ -53,7 +53,6 @@ process validate_bam {
   --MODE SUMMARY \
   --SKIP_MATE_VALIDATION false \
   --REFERENCE_SEQUENCE ${ref}
-
   """
 }
 
@@ -71,7 +70,7 @@ process samtools_flagstat {
 
   script:
   """
-  samtools flagstat ${bam} > ${bam.baseName}.flagstats.txt
+  samtools flagstat ${bam} > "${bam.baseName}.flagstats.txt"
   """
 }
 
@@ -84,7 +83,7 @@ process qualimap_bamqc {
   each file(ref) from ref_qualimap_bamqc_channel
 
   output:
-  file("*") into inliner_channel, multiqc_channel_qualimap_bamqc
+  set file("*") into inliner_channel, multiqc_channel_qualimap_bamqc
 
   script:
   """
