@@ -115,7 +115,7 @@ process inliner {
   script:
   """
   cd $folder
-  inliner *.html > ../"${folder.baseName}.html"
+  inliner *.html > "../${folder.baseName}.html"
   """
 }
 
