@@ -77,7 +77,6 @@ process samtools_flagstat {
 
 process qualimap_bamqc {
   tag "$bam"
-  publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
   container "maxulysse/sarek:latest"
 
   input:
@@ -85,7 +84,7 @@ process qualimap_bamqc {
   each file(ref) from ref_qualimap_bamqc_channel
 
   output:
-  file("*") into multiqc_channel_qualimap_bamqc
+  file("*") into inliner_channel, multiqc_channel_qualimap_bamqc
 
   script:
   """
@@ -99,6 +98,24 @@ process qualimap_bamqc {
   --skip-dup-mode 0 \
   -outdir ${bam.baseName} \
   -outformat HTML
+  """
+}
+
+process inliner {
+  tag "$bam"
+  publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
+  container "alfredc/inliner:1.13.1"
+
+  input:
+  file(folder) from inliner_channel
+
+  output:
+  file("${folder.baseName}.html") into qualimap_bamqc_results
+
+  script:
+  """
+  cd $folder
+  inliner *.html > ../"${folder.baseName}.html"
   """
 }
 
