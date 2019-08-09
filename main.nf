@@ -77,7 +77,6 @@ process samtools_flagstat {
 process qualimap_bamqc {
   tag "$bam"
   container "maxulysse/sarek:latest"
-  echo true
 
   input:
   file(bam) from qualimap_bamqc_channel
@@ -98,7 +97,7 @@ process qualimap_bamqc {
   -skip-duplicated \
   --skip-dup-mode 0 \
   -outdir ${bam.baseName}_folder \
-  -outformat HTML && ls -l ${bam.baseName}_folder
+  -outformat HTML 
   """
 }
 
