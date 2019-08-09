@@ -1,0 +1,19 @@
+# cp-inspo from here https://github.com/NBISweden/K9-WGS-Pipeline/blob/master/.travis.yml
+sudo: required
+
+language: java
+
+jdk: openjdk8
+
+env:
+  global:
+    - secure: ""
+
+jobs:
+  include:
+    - stage: test
+      script: #./scripts/travis-runner.sh
+      env:
+          - NXF_VER=18.10.0
+    - stage: merge
+      script: ./scripts/travis-merge.sh
