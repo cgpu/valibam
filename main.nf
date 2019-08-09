@@ -116,7 +116,7 @@ process inliner {
 
   script:
   """
-  echo $folder
+  echo \$(dirname $folder)
   """
 }
 
