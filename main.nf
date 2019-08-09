@@ -116,7 +116,7 @@ process inliner {
 
   script:
   """
-  ls -l .
+  echo $folder
   """
 }
 
