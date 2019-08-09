@@ -103,7 +103,7 @@ process qualimap_bamqc {
 process inliner {
   tag "$bam"
   publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
-  container "loadthefalaina/inliner:1.13.1"
+  container "loadthefalaina/npm-inliner:1.0.0"
 
   input:
   file(folder) from inliner_channel
