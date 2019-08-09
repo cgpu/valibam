@@ -109,7 +109,7 @@ process inliner {
   file(folder) from inliner_channel
 
   output:
-  file("${folder.baseName}.html") into qualimap_bamqc_results
+  file("${folder}.html") into qualimap_bamqc_results
 
   script:
   """
