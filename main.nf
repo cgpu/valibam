@@ -83,7 +83,7 @@ process qualimap_bamqc {
   each file(ref) from ref_qualimap_bamqc_channel
 
   output:
-  set file("*") into inliner_channel, multiqc_channel_qualimap_bamqc
+  file("${bam.baseName}") into multiqc_channel_qualimap_bamqc
 
   script:
   """
@@ -107,14 +107,14 @@ process inliner {
   echo true 
 
   input:
-  file(bamqc:'bamqc/*') from inliner_channel
+  file(folder) from inliner_channel
 
   output:
   file("*.html") into qualimap_bamqc_results
 
   script:
   """
-  ls -l "${bamqc}/*.html" 
+  ls -l $folder
   """
 }
 
