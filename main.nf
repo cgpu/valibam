@@ -101,7 +101,7 @@ process qualimap_bamqc {
 }
 
 process inliner {
-  tag "$folder"
+  tag "inliner"
   publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
   container "loadthefalaina/npm-inliner:1.0.0"
   echo true 
@@ -110,7 +110,7 @@ process inliner {
   file(bamqc:'bamqc/*') from inliner_channel
 
   output:
-  file("${folder}.html") into qualimap_bamqc_results
+  file("*.html") into qualimap_bamqc_results
 
   script:
   """
