@@ -111,11 +111,12 @@ process inliner {
   file(folder) from inliner_channel
 
   output:
-  file("*") into qualimap_bamqc_results
+  file("${folder}_report.html") into qualimap_bamqc_results
 
   script:
   """
-  echo \$(dirname $folder)
+  cd ${folder}
+  inliner qualimapReport.html  >  ../${folder}_report.html
   """
 }
 
