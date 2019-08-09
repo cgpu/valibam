@@ -85,7 +85,7 @@ process qualimap_bamqc {
 
   output:
   file("${bam.baseName}_folder") into inliner_channel
-  file("*") into inliner_channel
+  file("*") into multiqc_channel_qualimap_bamqc
   
   script:
   """
