@@ -17,9 +17,9 @@ Required Arguments:
 
 | argument       | value | 
 |:--------------:|:-----:| 
-| <kbd>`inputdir`</kbd>| a path to the input folder with bam files to be checked| 
-|  <kbd>`outdir`</kbd>  | a path to an output folder for the .txt summary report files. <br> The reports will be in the `outdir/Results/`</kbd> folder|
-| <kbd>`ref`| a path to the fasta file used as a reference genome for mapping the bam files|
+|`inputdir`| a path to the input folder with bam files to be checked| 
+| `outdir`  | a path to an output folder for the .txt summary report files. <br> The reports will be in the `outdir/Results/`folder|
+| `ref`| a path to the fasta file used as a reference genome for mapping the bam files|
 
 To test the pipeline with the example input you can run:
 
