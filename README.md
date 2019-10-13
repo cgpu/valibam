@@ -31,6 +31,6 @@ git clone https://github.com/cgpu/ValidateBAM-nf.git
 cd merge-bams-nf
 
 # Execute nextflow run command with example input parameters
-nextflow run merge-bams-nf/main.nf --inputdir path/to/input/folder/ --tool 'samtools' -with-docker lifebitai/samtools:latest
+nextflow run merge-bams-nf/main.nf --inputdir path/to/input/folder/ --tool 'samtools' 
 ```
 
