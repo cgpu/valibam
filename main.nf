@@ -38,7 +38,7 @@ process validate_bam {
   each file(ref) from ref_validate_bam_channel
 
   output:
-  file("*") into multiqc_channel_validate_bam
+  file("*_summary.txt") into multiqc_channel_validate_bam
 
   script:
   """
