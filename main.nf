@@ -11,7 +11,6 @@ Channel
 process generate_md5 {
   tag "$bam"
   publishDir "$params.outdir/md5sum", mode: 'copy'
-  container "frolvlad/alpine-bash:latest"
 
   input:
   file(bam) from md5_channel
@@ -31,7 +30,6 @@ process generate_md5 {
 process validate_bam {
   tag "$bam"
   publishDir "$params.outdir/ValidateBamFiles", mode: 'copy'
-  container "broadinstitute/gatk:latest"
 
   input:
   file(bam) from validate_bam_channel
@@ -59,7 +57,6 @@ process validate_bam {
 process samtools_flagstat {
   tag "$bam"
   publishDir "$params.outdir/SamtoolsFlagstat", mode: 'copy'
-  container "lifebitai/samtools:latest"
 
   input:
   file(bam) from samtools_flagstat_channel
@@ -76,7 +73,6 @@ process samtools_flagstat {
 
 process qualimap_bamqc {
   tag "$bam"
-  container "maxulysse/sarek:latest"
 
   input:
   file(bam) from qualimap_bamqc_channel
@@ -104,7 +100,6 @@ process qualimap_bamqc {
 process inliner {
   tag "inliner"
   publishDir "$params.outdir/QualimapBamQC", mode: 'copy'
-  container "loadthefalaina/npm-inliner:1.0.0"
   echo true 
 
   input:
@@ -122,7 +117,6 @@ process inliner {
 
 process multiqc {
     publishDir "$params.outdir/MultiQC", mode: 'copy'
-    container 'ewels/multiqc:v1.7'
 
     when:
     !params.skip_multiqc
