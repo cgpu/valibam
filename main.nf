@@ -38,6 +38,8 @@ process validate_bam {
   output:
   file("*_summary.txt") into multiqc_channel_validate_bam
 
+  when: !(params.skipPicard)
+
   script:
   """
   gatk ValidateSamFile \
@@ -89,11 +91,11 @@ process qualimap_bamqc {
   -bam ${bam} \
   --paint-chromosome-limits \
   --genome-gc-distr HUMAN \
-  -nt 2 \
   -skip-duplicated \
   --skip-dup-mode 0 \
   -outdir ${bam.baseName}_folder \
-  -outformat HTML 
+  -outformat HTML \
+  -nt ${task.cpus}
   """
 }
 
@@ -106,12 +108,12 @@ process inliner {
   file(folder) from inliner_channel
 
   output:
-  file("${folder}_report.html") into qualimap_bamqc_results
+  file("${folder}/${folder}_report.html") into qualimap_bamqc_results
 
   script:
   """
   cd ${folder}
-  inliner qualimapReport.html  >  ../${folder}_report.html
+  inliner qualimapReport.html  >  ${folder}_report.html
   """
 }
 
