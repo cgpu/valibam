@@ -1,7 +1,7 @@
 ```diff
 ---------  Under construction!  ---------
 ```
-# ValidateBAM-nf 
+# valibam
 Minimal nextflow pipeline to check integrity of BAM files with various tools and to generate`md5sum` of the files.
 <br><br>
 
